@@ -1,15 +1,20 @@
-import { Application } from 'express';
+import { Application, Router } from 'express';
+import { Controller } from '../controllers/Controller';
 
 
 class Routes {
+    public router: Router;
+    // private controller: Controller;
+
     constructor(private app: Application){
-        this.routes();
+        this.router = Router();
+        // const repository = new UserRepository()
+        // const useCase = new UseCase()
+        // this.controller = new Controller()
     }
 
-    public routes(): void {
-        this.app.get('/', (req, resp) => {
-            return resp.json({ ok: true });
-        });
+    initRoutes(){
+        // this.router.post('/', this.controller.create.bind(this.controller));
     }
 }
 
