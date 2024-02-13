@@ -8,7 +8,7 @@ class Controller {
     }
     
 
-    //cria 
+    //criação
     async store (req: Request, res: Response, next: NextFunction) {
         const {name, email, password } = req.body;
 

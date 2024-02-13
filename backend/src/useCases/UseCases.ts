@@ -1,5 +1,4 @@
 import { hash } from "bcrypt";
-import { HttpException } from "../interfaces/HttpException";
 import { ICreate } from "../interfaces/UserInterface";
 import { UserRepository } from "../repositories/UserRepository"
 
