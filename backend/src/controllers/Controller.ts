@@ -10,7 +10,7 @@ class Controller {
         const { id } = request.params;
 
         try{
-            const createUser = await this.useCase.addUser(id, name, email);
+            const createUser = await this.useCase.addUserCase(id, name, email);
             return response.status(200).json(createUser)
         } catch(error) {
             next(error);

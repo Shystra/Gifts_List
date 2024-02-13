@@ -5,7 +5,7 @@ class UseCase {
 
     constructor(private repository: UserRepository){}
 
-    async addUser(id: string, name: string, email: string){
+    async addUserCase(id: string, name: string, email: string){
         const findUser = await this.repository.findId(id);
 
         if(!findUser) throw new HttpException(400, 'User not found');
