@@ -1,9 +1,25 @@
-import { User } from "../entities/User";
+import { ICreate } from "../interfaces/UserInterface";
 
-interface UserRepository {
-    add(user: User): Promise<User>;
-    findId(id: string): Promise<User | undefined> ;
-    verifyUserExists(email: string):Promise<any>;
+class UserRepository{
+
+    async create({ name, email, password}: ICreate){
+        const result = await prisma.users.create({
+            data:{
+                name,
+                email,
+                password,
+            }
+        })
+    }
+
+    async findUserByEmail(email: string){
+        const result = await  prisma.users.findUnique({
+            where:{
+                email,
+            },
+        });
+        return result;
+    }
 }
 
 export {UserRepository}

@@ -1,20 +1,19 @@
 import { Application, Router } from 'express';
 import { Controller } from '../controllers/Controller';
 
-
 class Routes {
-    public router: Router;
-    // private controller: Controller;
+    private router: Router;
+    private usersController: Controller;
 
-    constructor(private app: Application){
+    constructor(app: Application) {
         this.router = Router();
-        // const repository = new UserRepository()
-        // const useCase = new UseCase()
-        // this.controller = new Controller()
+        this.usersController = new Controller();
+        this.getRoutes();
+        app.use('/users', this.router);
     }
 
-    initRoutes(){
-        // this.router.post('/', this.controller.create.bind(this.controller));
+    private getRoutes() {
+        this.router.post('/', this.usersController.store.bind(this.usersController));
     }
 }
 
