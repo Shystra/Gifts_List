@@ -15,13 +15,11 @@ describe('route / ', () => {
     });
 });
 describe('POST /users', () => {
-    // beforeAll(async () => {
-    // })
+    const app = new app_1.App().app;
     afterAll(async () => {
         await Schema_1.Users.deleteMany({ email: "teste@teste.com" });
     });
     it('should create user and return status 201 with _id', async () => {
-        const app = new app_1.App().app;
         const userData = {
             name: 'Lucas',
             email: "teste@teste.com",
@@ -30,5 +28,14 @@ describe('POST /users', () => {
         const response = await (0, supertest_1.default)(app).post('/users').send(userData);
         expect(response.status).toBe(201);
         expect(response.body).toHaveProperty("_id");
+    });
+    it("should't create user and not return status 201", async () => {
+        const userDataExistsDataBase = {
+            name: 'lucas1',
+            email: 'teste123@teste1213.com',
+            password: 'teste123'
+        };
+        const response = await (0, supertest_1.default)(app).post('/users').send(userDataExistsDataBase);
+        expect(response.status).toBe(500);
     });
 });
