@@ -13,9 +13,8 @@ class UseCase {
         if(findUser){
             throw new Error('User already exists')
         }
-
         const hashPassword = await hash(password, 8);
-
+        // const create = this.userRepository.create({name , email , password : hashPassword})
         try{
             const create = await this.userRepository.create({name , email , password : hashPassword})
             return create;
