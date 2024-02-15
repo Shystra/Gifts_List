@@ -1,12 +1,15 @@
 import express, { Application } from 'express';
-import Routes from './routes/Routes';
+import Routes from './routes/Users.Routes';
+import { DbConnection } from './dataBase';
 
 export class App {
     public app: Application;
-
+    public dbMongoose: DbConnection;
     constructor() {
         this.app = express();
         this.config();
+        this.dbMongoose = new DbConnection();
+        this.dbMongoose.connect(); 
         this.routes();
     }
 

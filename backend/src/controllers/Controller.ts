@@ -3,23 +3,28 @@ import { UseCase } from "../useCases/UseCases";
 
 class Controller {
     private useCases: UseCase;
-    constructor(){
+    constructor() {
         this.useCases = new UseCase();
     }
-    
+
 
     //criação
-    async store (req: Request, res: Response, next: NextFunction) {
-        const {name, email, password } = req.body;
+    async store(req: Request, res: Response, next: NextFunction) {
+        const { name, email, password } = req.body;
 
-        try{
-            const result = this.useCases.create({ name, email, password })
+        try {
+            const result = await this.useCases.create({ name, email, password })
+            if(result instanceof Error){
+                return res.status(400).json(result.message);
+            } 
+
+
             return res.status(201).json(result);
 
-        } catch(error){
+        } catch (error) {
             next(error)
         }
     }
 }
 
-export {Controller};
+export { Controller };

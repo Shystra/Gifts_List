@@ -1,23 +1,34 @@
 import { ICreate } from "../interfaces/UserInterface";
+import { Users } from "../models/Schema";
 
 class UserRepository{
 
+    // async create({ name, email, password}: ICreate){
+    //     const result = await Users.create({
+    //         data:{
+    //             name,
+    //             email,
+    //             password,
+    //         },
+    //     });
+    //     console.log("🚀 ~ UserRepository ~ create ~ result:", result)
+    //     return result;
+    // }
     async create({ name, email, password}: ICreate){
-        const result = await prisma.users.create({
-            data:{
-                name,
-                email,
-                password,
-            }
-        })
+        const user = await Users.create({ name, email, password });
+        const userObject = user.toObject();
+        delete userObject.password; // Remove do objeto
+        return userObject;
+        
     }
 
     async findUserByEmail(email: string){
-        const result = await  prisma.users.findUnique({
+        const result = await  Users.findOne({
             where:{
                 email,
             },
         });
+        console.log("🚀 ~ UserRepository ~ findUserByEmail ~ result:", result)
         return result;
     }
 }
