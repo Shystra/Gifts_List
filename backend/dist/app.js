@@ -5,11 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.App = void 0;
 const express_1 = __importDefault(require("express"));
-const Routes_1 = __importDefault(require("./routes/Routes"));
+const Users_Routes_1 = __importDefault(require("./routes/Users.Routes"));
+const dataBase_1 = require("./dataBase");
 class App {
     constructor() {
         this.app = (0, express_1.default)();
         this.config();
+        this.dbMongoose = new dataBase_1.DbConnection();
+        this.dbMongoose.connect();
+        this.setupRootRoute();
         this.routes();
     }
     config() {
@@ -17,7 +21,12 @@ class App {
         this.app.use(express_1.default.urlencoded({ extended: true }));
     }
     routes() {
-        new Routes_1.default(this.app);
+        new Users_Routes_1.default(this.app);
+    }
+    setupRootRoute() {
+        this.app.get('/', (req, res) => {
+            res.json({ ok: true });
+        });
     }
     listen(port) {
         this.app.listen(port, () => {

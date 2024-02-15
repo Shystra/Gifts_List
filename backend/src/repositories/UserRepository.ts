@@ -13,7 +13,7 @@ class UserRepository{
 
     async findUserByEmail(email: string){
         const result = await  Users.findOne({ email,});
-        console.log("🚀 ~ UserRepository ~ findUserByEmail ~ result:", result)
+        // console.log("🚀 ~ UserRepository ~ findUserByEmail ~ result:", result)
         return result;
     }
 }

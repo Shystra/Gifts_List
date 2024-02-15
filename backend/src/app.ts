@@ -10,6 +10,7 @@ export class App {
         this.config();
         this.dbMongoose = new DbConnection();
         this.dbMongoose.connect(); 
+        this.setupRootRoute();
         this.routes();
     }
 
@@ -20,6 +21,12 @@ export class App {
 
     private routes(): void {
         new Routes(this.app);
+    }
+
+    private setupRootRoute(): void{
+        this.app.get('/', (req, res) => {
+            res.json({ ok: true })
+        })
     }
 
     listen(port: number) {

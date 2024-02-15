@@ -6,11 +6,14 @@ class Controller {
     constructor() {
         this.useCases = new UseCases_1.UseCase();
     }
-    //cria 
+    //criação
     async store(req, res, next) {
         const { name, email, password } = req.body;
         try {
-            const result = this.useCases.create({ name, email, password });
+            const result = await this.useCases.create({ name, email, password });
+            if (result instanceof Error) {
+                return res.status(400).json(result.message);
+            }
             return res.status(201).json(result);
         }
         catch (error) {
