@@ -12,15 +12,12 @@ describe('route / ', () => {
 });
 
 describe('POST /users', () => {
-    // beforeAll(async () => {
-
-    // })
+    const app = new App().app
     afterAll(async () => {
         await Users.deleteMany({ email: "teste@teste.com"});
     })
 
     it('should create user and return status 201 with _id', async () => {
-        const app = new App().app
         const userData = {
             name: 'Lucas',
             email: "teste@teste.com",
@@ -33,4 +30,15 @@ describe('POST /users', () => {
         expect(response.body).toHaveProperty("_id")
     });
     
+
+    it("should't create user and not return status 201", async () => {
+        const userDataExistsDataBase = {
+            name: 'lucas1',
+            email: 'teste123@teste1213.com',
+            password: 'teste123'
+        };
+        const response = await request(app).post('/users').send(userDataExistsDataBase);
+
+        expect(response.status).toBe(500);
+    })
 });
