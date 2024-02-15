@@ -3,17 +3,6 @@ import { Users } from "../models/Schema";
 
 class UserRepository{
 
-    // async create({ name, email, password}: ICreate){
-    //     const result = await Users.create({
-    //         data:{
-    //             name,
-    //             email,
-    //             password,
-    //         },
-    //     });
-    //     console.log("🚀 ~ UserRepository ~ create ~ result:", result)
-    //     return result;
-    // }
     async create({ name, email, password}: ICreate){
         const user = await Users.create({ name, email, password });
         const userObject = user.toObject();
@@ -23,11 +12,7 @@ class UserRepository{
     }
 
     async findUserByEmail(email: string){
-        const result = await  Users.findOne({
-            where:{
-                email,
-            },
-        });
+        const result = await  Users.findOne({ email,});
         console.log("🚀 ~ UserRepository ~ findUserByEmail ~ result:", result)
         return result;
     }
